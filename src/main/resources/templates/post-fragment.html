@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div th:fragment="postFragment" >
+    <div class="row d-flex">
+        <div class="col-md-2">
+            <button class="btn btn-primary" th:if="${hasPrev}" th:onclick="|loadMore('${user.getUserId()}','${index-2}','${size}')|">previous posts
+            </button>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary" th:if="${hasNext}" th:onclick="|loadMore('${user.getUserId()}','${index}','${size}')|">next posts
+            </button>
+        </div>
+    </div>
+    <div class="blog-entry p-5 align-self-stretch" th:each="post : ${posts}">
+        <a class="block-21" th:href="@{'/posts/' + ${post.postId}}">
+            <img th:class="img"
+                 th:src="@{'/posts/' + ${post.postId} + '/postImage'}" >
+        </a>
+        <div class="text mt-3">
+            <div class="meta mb-2">
+                <div><a th:text="${post.date}">August 28, 2019</a></div>
+                <div>
+                    <a th:text="${post.user.personalProfile.getFirstName()+' '+post.user.personalProfile.getLastName()}">Admin</a>
+                </div>
+                <div><a th:href="@{'/posts/' + ${post.postId}+'#com'}" class="meta-chat"><span class="icon-chat" th:text="${post.getComments().size()}"></span> </a></div>
+            </div>
+            <h3 class="heading"><a th:text="${post.content}" maxlength="50">Even the all-powerful
+                Pointing has no control about the blind
+                texts</a></h3>
+        </div>
+    </div>
+    <div class="row d-flex">
+    <div class="col-md-2">
+        <button class="btn btn-primary" th:if="${hasPrev}" th:onclick="|loadMore('${user.getUserId()}','${index-2}','${size}')|">previous posts
+        </button>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary" th:if="${hasNext}" th:onclick="|loadMore('${user.getUserId()}','${index}','${size}')|">next posts
+        </button>
+    </div>
+    </div>
+</div>
+
+
+</body>
+</html>

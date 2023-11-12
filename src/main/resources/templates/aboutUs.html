@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>WE are social media</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}"
+          href="../static/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/animate.css}" href="../static/css/animate.css">
+
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" href="../static/css/owl.carousel.min.css">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" href="../static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}" href="../static/css/magnific-popup.css">
+
+    <link rel="stylesheet" th:href="@{/css/aos.css}" href="../static/css/aos.css">
+
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}" href="../static/css/ionicons.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}" href="../static/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}" href="../static/css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}" href="../static/css/flaticon.css">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}" href="../static/css/icomoon.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container-fluid px-md-4	">
+        <a class="navbar-brand" th:href="@{/}">WEare</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item cta mr-md-1"><a sec:authorize="!isAuthenticated()" th:href="@{/register}"
+                                                    class="nav-link">REGISTER</a>
+                </li>
+                <li class="nav-item cta cta cta-colored"><a sec:authorize="!isAuthenticated()" th:href="@{/login}"
+                                                            class="nav-link">SIGN
+                    IN</a></li>
+
+                <li class="nav-item"><a th:href="@{/}" class="nav-link">Home</a></li>
+                <li class="nav-item"><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/admin'}" class="nav-link">GO
+                    TO admin zone</a></li>
+                <!--                <li class="nav-item"><a sec:authorize="!isAuthenticated()" th:href="@{'/auth'}" class="nav-link">GO-->
+                <!--                    TO personal zone</a></li>-->
+                <li class="nav-item"><a sec:authorize="isAuthenticated()"
+                                        th:href="@{'/auth/users/' + ${UserPrincipal.getUserId()} + '/profile'}"
+                                        class="nav-link">Personal
+                    Profile</a></li>
+                <li class="nav-item"><a th:href="@{/posts}" class="nav-link">Latest Posts</a></li>
+
+                <li class="nav-item cta cta-colored"><a th:href="@{/posts/auth/newPost}"
+                                                        sec:authorize="isAuthenticated()" class="nav-link">Add New
+                    post</a></li>
+                <li class="nav-item"><a sec:authorize="isAuthenticated()" th:href="@{/logout}"
+                                        class="nav-link">LOGOUT</a></li>
+
+                <!--				<li sec:authorize="isAuthenticated()" class="nav-item cta mr-md-1"><a th:href="@{'/auth/users/'+${user.userId}+'/profile'}" class="nav-link">Your Profile</a></li>-->
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END nav -->
+
+<div class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bg_1.jpg');"
+     data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+            <div class="col-md-12 ftco-animate text-center mb-5">
+                <p class="breadcrumbs mb-0"><span class="mr-3"><a th:href="@{/}">Home
+					<i class="ion-ios-arrow-forward"></i> </a></span> <span>About us</span>
+                <h1 class="mb-3 bread">About us</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END nav -->
+
+
+<section class="ftco-section ftco-degree-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 ftco-animate">
+                <h2 class="mb-3 mt-5">WEare social network</h2>
+                <p>WEare social network is a professional network, where people can exchange experiance and services.
+                    WEare all good at what we do. Why not share? Now you can help others with what you are good at and
+                    you could use some help from the others. All users and post aim to show to the world, what services
+                    are now available and what people are now doing. You need an online lawyer consultation? Why not!
+                    One search away from you is a perfect match to your needs. It could be, that he/she needs your
+                    painting skills for a new house...
+                </p>
+                <p>Explore, help and share!</p>
+                <p>
+                    <img src="/images/WEare.jpg" width="300">
+                </p>
+                <br>
+                <br>
+                <h2 class="mb-3">Teodora Ivanova</h2>
+                <p>Java cohort at Telerik Academy 2020</p>
+                <p>
+                    <img src="/images/CvPictureTedi.jpg" width="200">
+                </p>
+                <p></p>
+                <h2 class="mb-3 mt-5">Stanimir Kolev</h2>
+                <p>Java cohort at Telerik Academy 2020</p>
+                <p>
+                    <img src="/images/IMG_3630cv1.jpg" width="200">
+                </p>
+                <p></p>
+                <h2 class="mb-3 mt-5">Want to be part of the team?</h2>
+                <p>Contact us and prepare your most "thinking out of the box" ideas</p>
+                <p>
+                    <img src="/images/Question-mark-face.jpg" width="200">
+                </p>
+                <p></p>
+
+
+            </div> <!-- .col-md-8 -->
+
+        </div>
+    </div>
+</section> <!-- .section -->
+
+
+<section th:insert="fragments/sing-up :: sing-up"></section>
+
+<div th:insert="fragments/footer :: footer"></div>
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle
+                class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle
+                class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/aos.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="/js/google-map.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

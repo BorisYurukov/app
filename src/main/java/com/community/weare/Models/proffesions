@@ -1,0 +1,96 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               10.4.12-MariaDB - mariadb.org binary distribution
+-- Server OS:                    Win64
+-- HeidiSQL Version:             10.2.0.5599
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- Dumping database structure for db_weare
+CREATE DATABASE IF NOT EXISTS `db_weare` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `db_weare`;
+
+-- Dumping structure for table db_weare.skills_table
+CREATE TABLE IF NOT EXISTS `skills` (
+                                              `skill_id` int(11) NOT NULL AUTO_INCREMENT,
+                                              `skill` varchar(255) DEFAULT NULL,
+                                              PRIMARY KEY (`skill_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table db_weare.skills_table: 56 rows
+/*!40000 ALTER TABLE `skills` DISABLE KEYS */;
+INSERT INTO `skills` (`skill_id`, `skill`) VALUES
+(1, 'Car service'),
+(2, 'Lawyer'),
+(3, 'Doctor'),
+(4, 'Veterinarian'),
+(5, 'Teachers'),
+(6, 'Nurses'),
+(7, 'Nanny'),
+(8, 'Actor'),
+(9, 'Archaeologist'),
+(10, 'Musician'),
+(11, 'Scientist'),
+(12, 'Firefighter'),
+(13, 'Writer'),
+(14, 'Police Officer'),
+(15, 'Astronaut'),
+(16, 'Pilot'),
+(17, 'Accountant'),
+(18, 'Author'),
+(19, 'Baker'),
+(20, 'Bus driver'),
+(21, 'Chef/Cook'),
+(22, 'Cleaner'),
+(23, 'Dentist'),
+(24, 'Designer'),
+(25, 'Electrician'),
+(26, 'Factory worker'),
+(27, 'Farmer'),
+(28, 'Fisherman'),
+(29, 'Gardener'),
+(30, 'Hairdresser'),
+(31, 'Journalist'),
+(32, 'Judge'),
+(33, 'Lecturer'),
+(34, 'Lifeguard'),
+(35, 'Mechanic'),
+(36, 'Model'),
+(37, 'Newsreader'),
+(38, 'Optician'),
+(39, 'Painter'),
+(40, 'Pharmacist'),
+(41, 'Photographer'),
+(42, 'Plumber'),
+(43, 'Policeman/Policewoman'),
+(44, 'Politician'),
+(45, 'Postman'),
+(46, 'Real estate agent'),
+(47, 'Receptionist'),
+(48, 'Scientist'),
+(49, 'Secretary'),
+(50, 'Shop assistant'),
+(51, 'Soldier'),
+(52, 'Tailor'),
+(53, 'Translator'),
+(54, 'Travel agent'),
+(55, 'Waiter/Waitress'),
+(56, 'Window cleaner');
+/*!40000 ALTER TABLE `skills` ENABLE KEYS */;
+
+-- Dumping data for table db_weare.authority: ~2 rows (approximately)
+/*!40000 ALTER TABLE `authority` DISABLE KEYS */;
+INSERT INTO `authority` (`id`, `authority`) VALUES
+(2, 'ROLE_ADMIN'),
+(1, 'ROLE_USER');
+/*!40000 ALTER TABLE `authority` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

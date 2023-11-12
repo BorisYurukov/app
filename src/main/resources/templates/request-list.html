@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>My Requests</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}"
+          href="../static/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/animate.css}" href="../static/css/animate.css">
+
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" href="../static/css/owl.carousel.min.css">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" href="../static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}" href="../static/css/magnific-popup.css">
+
+    <link rel="stylesheet" th:href="@{/css/aos.css}" href="../static/css/aos.css">
+
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}" href="../static/css/ionicons.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}" href="../static/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}" href="../static/css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}" href="../static/css/flaticon.css">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}" href="../static/css/icomoon.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .fa {
+            font-size: 50px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .fa:hover {
+            color: darkblue;
+        }
+    </style>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container-fluid px-md-4	">
+        <a class="navbar-brand" th:href="@{/}">WEare</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item cta mr-md-1"><a sec:authorize="!isAuthenticated()" th:href="@{/register}"
+                                                    class="nav-link">REGISTER</a>
+                </li>
+                <li class="nav-item cta cta cta-colored"><a sec:authorize="!isAuthenticated()" th:href="@{/login}"
+                                                            class="nav-link">SIGN
+                    IN</a></li>
+
+                <li class="nav-item"><a th:href="@{/}" class="nav-link">Home</a></li>
+                <li class="nav-item"><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/admin'}" class="nav-link">GO
+                    TO admin zone</a></li>
+
+                <li class="nav-item"><a sec:authorize="isAuthenticated()"
+                                        th:href="@{'/auth/users/' + ${user.getUserId()} + '/profile'}" class="nav-link">Personal
+                    Profile</a></li>
+                <li class="nav-item"><a th:href="@{/posts}" class="nav-link">Latest Posts</a></li>
+
+                <li class="nav-item cta cta-colored"><a th:href="@{/posts/auth/newPost}"
+                                                        sec:authorize="isAuthenticated()" class="nav-link">Add New
+                    post</a></li>
+                <li class="nav-item"><a sec:authorize="isAuthenticated()" th:href="@{/logout}"
+                                        class="nav-link">LOGOUT</a></li>
+
+                <!--				<li sec:authorize="isAuthenticated()" class="nav-item cta mr-md-1"><a th:href="@{'/auth/users/'+${user.userId}+'/profile'}" class="nav-link">Your Profile</a></li>-->
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END nav -->
+
+<div th:if="${error==null} and ${requests!=null} and ${!requests.isEmpty()}" class="hero-wrap hero-wrap-2"
+     style="background-image: url('../static/images/bg_1.jpg');"
+     data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+            <div class="col-md-12 ftco-animate text-center mb-5">
+                <p class="breadcrumbs mb-0"><span class="mr-3"><a th:href="@{/}">Home
+					<i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-3">
+                    <a  th:href="@{'/auth/users/' + ${user.getUserId()} + '/profile'}"
+                       >My Profile</a></span></p>
+                <h1 class="mb-3 bread">All Requests</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="hero-wrap hero-wrap-2" th:if=" ${error!=null}" style="background-image: url('../static/images/bg_1.jpg');"
+     data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+            <div class="col-md-12 ftco-animate text-center mb-5">
+                <p class="breadcrumbs mb-0"><span class="mr-3"><a th:href="@{/}">Home
+					<i class="ion-ios-arrow-forward"></i> </a></span> <span>Opsss...</span></p>
+                <h3 class="mb-3 bread" th:text="${error}">error</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="ftco-section ftco-candidates ftco-candidates-2 bg-light pt-5 mt-5 ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 pr-lg-4">
+                <div class="row">
+                    <div class="col-md-12 ftco-animate" th:if="${requests.size()!=0}" th:each="request : ${requests}">
+                        <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                            <div class="one-third mb-4 mb-md-0">
+                                <div class="job-post-item-header align-items-center">
+                                    <span th:text="${request.getTimeStamp()}" class="subadge">Partime</span>
+                                    <a th:href="@{'/auth/users/' + ${request.getSender().getUserId()} + '/profile'}"><h2
+                                            class="mr-3 text-black"
+                                            th:text="${request.getSender().getPersonalProfile().firstName+' '+request.getSender().getPersonalProfile().lastName}"
+                                            th:type="text">Ivan Petrov</h2></a>
+                                </div>
+                                <div class="job-post-item-body d-block d-md-flex">
+                                    <div class="mr-3"
+                                         th:if="${request.getSender().getPersonalProfile().getLocation()!=null}"
+                                         th:text="${request.getSender().getPersonalProfile().getLocation().getCity().city}">
+                                        <span class="icon-layers"></span> <a href="#">Location</a></div>
+                                    <div th:text="${request.getSender().getExpertiseProfile().getCategory().name}"><span
+                                            class="icon-my_location"></span> <span>Expertise</span></div>
+                                </div>
+                                <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+                                    <!--                                <div>-->
+                                    <!--                                    <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">-->
+                                    <!--                                        <span class="icon-heart"></span>-->
+                                    <!--                                    </a>-->
+                                    <!--                                </div>-->
+
+                                </div>
+                            </div>
+                            <form action="#" th:object="${requestN}" method="post"
+                                  th:action="@{/auth/connection/request/approve}">
+                                <input type="hidden" th:value="true" data-th-value="true" class="mb-2"
+                                       th:field="*{approved}"/>
+                                <input type="hidden" th:value="${request.getId()}"
+                                       data-th-value="${request.getId()}" class="mb-2" th:field="*{id}"/>
+                                <input type="hidden" th:value="${request.getReceiver().getUserId()}"
+                                       data-th-value="${request.getReceiver().getUserId()}" class="mb-2" th:field="*{receiver.userId}"/>
+                                <input class="btn btn-primary py-2" type="submit"
+                                       value="Approve Request"/>
+                            </form>
+                        </div>
+                    </div>
+                    <form action="#" th:action="@{'/auth/connection/'+${user.getUserId()}+'/request'}" th:object="${pageRequest}"
+                          method="get"
+                          class="search-job">
+
+                        <label>
+
+                            <input type="hidden" data-th-value="${pageRequest.getIndex()}" th:value="${pageRequest.getIndex()}" th:field="*{index}" class="mb-2"/>
+                            <input type="hidden" data-th-value="4" th:value="4" th:field="*{size}" class="mb-2"/>
+
+                        </label>
+                        <input  th:if="${requests!=null} and ${hasNext}" class="btn btn-primary" type="submit" value="Load next requests"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    <form action="#" th:action="@{'/auth/users/' + ${user.getUserId()} + '/profile/posts'}" th:object="${page}"-->
+<!--          method="get"-->
+<!--          class="search-job">-->
+
+<!--        <label>-->
+
+<!--            <input type="hidden" data-th-value="${page.getIndex()}" th:value="${page.getIndex()}" th:field="*{index}" class="mb-2"/>-->
+<!--            <input type="hidden" data-th-value="4" th:value="4" th:field="*{size}" class="mb-2"/>-->
+<!--            &lt;!&ndash;                <input type="hidden" th:value="1" name="next" class="mb-2"/>&ndash;&gt;-->
+<!--        </label>-->
+<!--        <input th:if="${posts==null}" class="btn btn-primary" type="submit" value="LOAD RECENT POSTS"/>-->
+<!--        <input th:if="${posts!=null} and ${hasNext}" class="btn btn-primary" type="submit" value="LOAD MORE RECENT POSTS"/>-->
+<!--    </form>-->
+</section>
+
+<section class="ftco-section services-section">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+                <div class="media block-6 services d-block">
+                    <div class="icon"><span class="flaticon-resume"></span></div>
+                    <div class="media-body">
+                        <h3 class="heading mb-3">Register and Search Thousands of Services that People in Bulgaria are willing to share with you.Sign up to create an account. </h3>
+                        <p>You must provide your email and phone number. We will send you a link to validate your email address.
+                            The more complete your profile is, the easier it is for potential partners to contact you.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+                <div class="media block-6 services d-block">
+                    <div class="icon"><span class="flaticon-team"></span></div>
+                    <div class="media-body">
+                        <h3 class="heading mb-3">Leverage your skills. What can you do? When and where can you do it?</h3>
+                        <p>Register and pick up your field of expertise.By putting you in touch with the person who is seeking the skill or service that you are offering,
+                            Weare enables sharing, exchanging, and trading and a return to the community values of old in the process. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+                <div class="media block-6 services d-block">
+                    <div class="icon"><span class="flaticon-career"></span></div>
+                    <div class="media-body">
+                        <h3 class="heading mb-3">Search for people that can help you or your business</h3>
+                        <p>After you helped someone. They can either return the favour directly to you or to someone else in the Weare community.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+                <div class="media block-6 services d-block">
+                    <div class="icon"><span class="flaticon-employees"></span></div>
+                    <div class="media-body">
+                        <h3 class="heading mb-3">You are wanted</h3>
+                        <p>Is your hobby sports, music, cooking or handicrafts or...?
+                            Whatever you enjoy doing, share it with others by registering as a member
+                            and publish your skills.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div th:insert="fragments/footer :: footer"></div>
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/aos.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="/js/google-map.js"></script>
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h2 th:text="#{home.welcome}">Hello World (design)!</h2>
+
+<!-- login page form -->
+<form th:action="@{/login}" method="get">
+    <input class="col-md-4" id="b1" type="submit" value="Login"/>
+</form>
+<!-- END-->
+
+<br/>
+
+
+<!-- register page form -->
+<form th:action="@{/register}" method="get">
+    <input class="col-md-4" id="b2" type="submit" value="Register"/>
+</form>
+<!-- END-->
+<br/>
+
+
+<!-- logout page form -->
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+<!-- END-->
+
+<br/>
+<!-- feed -->
+<form th:action="@{/posts}" method="get">
+    <input class="col-md-4" id="b4" type="submit" value="Show feed"/>
+</form>
+<!-- END-->
+<p sec:authorize="isAuthenticated()">
+    <a th:if="${user!=null}" th:href="@{'/auth/users/' + ${user.userId} + '/profile'}"
+       class="btn btn-primary">See profile</a>
+</p>
+<p sec:authorize="!isAuthenticated()">
+    <a th:href="@{/auth}"
+       class="btn btn-primary">go to Personal zone</a>
+</p>
+<p sec:authorize="isAuthenticated()">
+    User:<span sec:authentication="name"></span>
+    <br/>
+    Role(s):<span sec:authentication="principal.authorities"></span>
+</p>
+
+<h3 sec:authorize="hasRole('ROLE_ADMIN')">
+    <a th:href="@{/admin}">Admin Portal</a>
+</h3>
+
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+registerUser
+{
+  "authorities": [
+    "ROLE_USER"
+  ],
+  "confirmPassword": "User123",
+  "email": "user@abv.bg",
+  "password": "User123",
+  "username": "user"
+}
+
+{
+  "birthYear": "1987-04-26",
+  "firstName": "Rosen",
+  "id": 0,
+  "lastName": null,
+  "location": {
+    "city": {
+      "city": "Sofia",
+      "country": {},
+      "id": 1
+    },
+    "id": 0
+  },
+  "memberSince": "2020-04-26T14:42:44.574Z",
+  "personalReview": null,
+  "picture": null,
+  "picturePrivacy": false,
+  "sex": "MALE"
+}

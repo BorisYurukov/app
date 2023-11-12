@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>WE are social media</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}"
+          href="../static/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/animate.css}" href="../static/css/animate.css">
+
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" href="../static/css/owl.carousel.min.css">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" href="../static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}" href="../static/css/magnific-popup.css">
+
+    <link rel="stylesheet" th:href="@{/css/aos.css}" href="../static/css/aos.css">
+
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}" href="../static/css/ionicons.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}" href="../static/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}" href="../static/css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}" href="../static/css/flaticon.css">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}" href="../static/css/icomoon.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container-fluid px-md-4	">
+        <a class="navbar-brand" th:href="@{/}">WEare</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item cta mr-md-1"><a sec:authorize="!isAuthenticated()" th:href="@{/register}" class="nav-link">REGISTER</a>
+                </li>
+                <li class="nav-item cta cta cta-colored"><a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="nav-link">SIGN
+                    IN</a></li>
+
+                <li class="nav-item"><a th:href="@{/}" class="nav-link">Home</a></li>
+                <li class="nav-item"><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/admin'}" class="nav-link">GO
+                    TO admin zone</a></li>
+                <!--                <li class="nav-item"><a sec:authorize="!isAuthenticated()" th:href="@{'/auth'}" class="nav-link">GO-->
+                <!--                    TO personal zone</a></li>-->
+                <li class="nav-item"><a sec:authorize="isAuthenticated()"
+                                        th:href="@{'/auth/users/' + ${UserPrincipal.getUserId()} + '/profile'}" class="nav-link">Personal
+                    Profile</a></li>
+                <li class="nav-item"><a th:href="@{/posts}" class="nav-link">Latest Posts</a></li>
+                <li class="nav-item"><a th:href="@{/about-us}" class="nav-link">About us</a></li>
+                <li class="nav-item cta cta-colored"><a th:href="@{/posts/auth/newPost}" sec:authorize="isAuthenticated()" class="nav-link">Add New post</a></li>
+                <li class="nav-item"><a sec:authorize="isAuthenticated()" th:href="@{/logout}"
+                                        class="nav-link">LOGOUT</a></li>
+
+                <!--				<li sec:authorize="isAuthenticated()" class="nav-item cta mr-md-1"><a th:href="@{'/auth/users/'+${user.userId}+'/profile'}" class="nav-link">Your Profile</a></li>-->
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END nav -->
+
+<div th:if="${error==null and post!=null}" class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bg_1.jpg');"
+     data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+            <div class="col-md-12 ftco-animate text-center mb-5">
+                <p class="breadcrumbs mb-0"><span class="mr-3"><a th:href="@{/}">Home
+					<i class="ion-ios-arrow-forward"></i> </a></span> <span>Posts</span>
+                    <i class="ion-ios-arrow-forward"></i> <span>Post</span></p>
+                <h1 class="mb-3 bread">Explore post</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END nav -->
+
+<div class="hero-wrap hero-wrap-2" th:if="${error!=null}" style="background-image: url('../static/images/bg_1.jpg');"
+     data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+            <div class="col-md-12 ftco-animate text-center mb-5">
+                <p class="breadcrumbs mb-0"><span class="mr-3"><a th:href="@{/}">Home
+					<i class="ion-ios-arrow-forward"></i> </a></span> <span>Opsss...</span></p>
+                <h1 class="mb-3 bread" th:text="${error}">error</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section th:if="${post!=null}" class="ftco-section ftco-degree-bg">
+    <div class="container">
+<!--        <p>-->
+<!--            <i th:if="${error != null}" th:text="${error}" style="color: red"></i>-->
+<!--        </p>-->
+        <div class="row">
+            <div class="col-md-8 ftco-animate" th:object="${post}">
+                <h2 class="mb-3" th:text="${post.user.username}"></h2>
+                <p th:text="${post.content}"></p>
+                <p>
+                    <img th:src="@{'/posts/' + ${post.postId} + '/postImage'}" width="500">
+                    <!--                   th:href="@{'/posts/' + ${post.postId} + '/postImage'}">-->
+                </p>
+                <p>See my profile for more information or just contact me</p>
+                <h2 class="mb-3 mt-5">#WEare social network</h2>
+                <p>WEare all good at what we do. Why not share?</p>
+                <p>
+                    <img src="/images/image_8.jpg" alt="" class="img-fluid">
+                </p>
+                <p>Additional info...</p>
+                <p>Additional info...</p>
+                <p>Additional info...</p>
+                <p>Additional info...</p>
+                <div class="tag-widget post-tag-container mb-5 mt-5">
+                    <div class="tagcloud">
+                        <a href="#" class="tag-cloud-link">Life</a>
+                        <a href="#" class="tag-cloud-link">Sport</a>
+                        <a href="#" class="tag-cloud-link">Tech</a>
+                        <a href="#" class="tag-cloud-link">Travel</a>
+                    </div>
+                </div>
+
+                <div class="about-author d-flex p-4 bg-light" th:object="${post}">
+                    <div class="bio mr-5">
+                        <!--                        <img src="/images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">-->
+                        <div class="img-fluid mb-4" th:if="${post.getUser().getPersonalProfile().getPicture()==null}">
+                            <img src="/images/blank-profile-picture.jpg" alt="Image" width="190">
+                        </div>
+                        <div class="img-fluid mb-4" th:if="${post.getUser().getPersonalProfile().getPicture()!=null}">
+                            <img th:src="@{'/users/' + ${post.getUser().getUserId()} + '/userImage'}" alt="Image"
+                                 width="190">
+                        </div>
+
+                    </div>
+                    <div class="desc">
+                        <h3 th:text="${post.getUser().getPersonalProfile().getFirstName() +' '+
+                        post.getUser().getPersonalProfile().getLastName()}"></h3>
+                        <a th:href="@{'/auth/users/' + ${post.user.getUserId()} + '/profile'}"
+                           class="btn btn-primary">See profile</a>
+                        <p th:text="${post.getUser().getPersonalProfile().getPersonalReview()}">text</p>
+                    </div>
+                </div>
+
+
+                <div class="pt-5 mt-5">
+                    <h3  id="com" class="mb-5" th:text="${post.comments.size()} + ' Comments'"></h3>
+                    <button style="margin-bottom: 15px" class="show-comments">Show Comments</button>
+                    <br>
+                    <ul class="comment-list" style="display: none">
+
+                        <li id="comments" class="comments" th:each="comment : ${post.comments}">
+                            <div class="vcard bio">
+                                <div class="vcard bio"
+                                     th:if="${comment.getUser().getPersonalProfile().getPicture()==null}">
+                                    <img src="/images/blank-profile-picture.jpg" alt="Image">
+                                </div>
+                                <div class="vcard bio"
+                                     th:if="${comment.user.getPersonalProfile().getPicture()!=null}">
+                                    <img th:src="@{'/users/' + ${comment.user.getUserId()} + '/userImage'}"
+                                         alt="Image">
+                                </div>
+                            </div>
+
+                            <div class="comment-body">
+                                <h3 th:text="${comment.user.username}"></h3>
+                                <div class="meta" th:text="${comment.date}"></div>
+                                <p th:text="${comment.content}"></p>
+                                <span class="position" th:id="like-count + ${comment.getCommentId()}"
+                                      th:text="'Likes: ' + ${comment.likes.size()}"></span><br>
+
+                                <form th:class="like-form" th:id="${comment.getCommentId()}" th:object="${commentDTOlike}"
+                                      method="post"
+                                      sec:authorize="isAuthenticated()" enctype="multipart/form-data">
+                                    <div>
+                                        <input name="postId" type="hidden" data-th-value="${comment.getCommentId()}"
+                                               th:value="${comment.getCommentId()}" class="mb-2" th:field="*{commentId}"/>
+                                    </div>
+                                    <input class="reply" type="submit" th:id="submit-val + ${comment.getCommentId()}"
+                                           th:value="${comment.isLiked2(UserPrincipal.getUsername()) ? 'Dislike':'Like'}"/>
+                                </form>
+
+                                <p>
+                                    <a th:href="@{'/comments/editor/' + ${comment.commentId}}"
+                                       sec:authorize="isAuthenticated()"
+                                       th:if="${(comment.canEdit(UserPrincipal.getUsername()) || isAdmin) == true}"
+                                       class="reply">Edit comment</a><br>
+
+                                    <a th:href="@{'/comments/manager/' + ${comment.commentId}}"
+                                       sec:authorize="isAuthenticated()"
+                                       th:if="${(comment.canEdit(UserPrincipal.getUsername()) || isAdmin) == true}"
+                                       class="reply">Delete comment</a>
+
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!-- END comment-list -->
+
+                    <div class="comment-form-wrap pt-5" id="leaveComment" sec:authorize="isAuthenticated()">
+                        <h3 class="mb-5">Leave a comment</h3>
+                        <form action="#" class="p-5 bg-light" th:object="${comment}" method="post"
+                              enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea name="" id="message" cols="30" rows="10" class="form-control"
+                                          th:field="*{content}"
+                                ></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                            </div>
+
+                        </form>
+                    </div>
+
+
+                </div>
+
+            </div> <!-- .col-md-8 -->
+            <br>
+            <!--                ***********************************All posts of user********************************-->
+            <div class="col-lg-4 sidebar">
+                <div class="sidebar-box bg-white p-4 ftco-animate">
+                    <form id="Posts-form" th:object="${User}" method="post"
+                          enctype="multipart/form-data">
+                        <div>
+                            <input name="userId" type="hidden" data-th-value="${post.getUser().getUserId()}"
+                                   th:value="${post.getUser().getUserId()}" class="btn py-3 px-4 btn-primary"
+                                   th:field="*{id}"/>
+                        </div>
+                        <!--                                    <a href="#" id="like-btn"> <i class="fas fa-heart"></i> </a>-->
+                        <input class="btn py-3 px-4 btn-primary" type="submit" value="All posts of this user"/>
+                    </form>
+                    <br>
+                    <!--                ***********************************Edit post********************************-->
+                    <a th:href="@{'/posts/auth/editor/' + ${post.postId}}" sec:authorize="isAuthenticated()"
+                       th:if="${(post.canEdit(UserPrincipal.getUsername()) || isAdmin) == true}"
+                       class="btn py-3 px-4 btn-primary">Edit post</a>
+
+                    <br>
+                    <br>
+                    <!--                ***********************************Delete post********************************-->
+                    <a th:href="@{'/posts/auth/manager/' + ${post.postId}}" sec:authorize="isAuthenticated()"
+                       th:if="${(post.canEdit(UserPrincipal.getUsername()) || isAdmin) == true}"
+                       class="btn py-3 px-4 btn-primary">Delete post</a>
+                </div>
+                <br>
+                <br>
+            </div>
+
+        </div>
+    </div>
+</section> <!-- .section -->
+
+<!--<section class="ftco-section-parallax">-->
+<!--    <div class="parallax-img d-flex align-items-center">-->
+<!--        <div class="container">-->
+<!--            <div class="row d-flex justify-content-center">-->
+<!--                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">-->
+<!--                    <h2>Subcribe to our Newsletter</h2>-->
+<!--                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,-->
+<!--                        there live the blind texts. Separated they live in</p>-->
+<!--                    <div class="row d-flex justify-content-center mt-4 mb-4">-->
+<!--                        <div class="col-md-12">-->
+<!--                            <form action="#" class="subscribe-form">-->
+<!--                                <div class="form-group d-flex">-->
+<!--                                    <input type="text" class="form-control" placeholder="Enter email address">-->
+<!--                                    <input type="submit" value="Subscribe" class="submit px-3">-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--<footer class="ftco-footer ftco-bg-dark ftco-section">-->
+<!--    <div class="container">-->
+<!--        <div class="row mb-5">-->
+<!--            <div class="col-md">-->
+<!--                <div class="ftco-footer-widget mb-4">-->
+<!--                    <h2 class="ftco-heading-2">Skillhunt Jobboard</h2>-->
+<!--                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,-->
+<!--                        there live the blind texts.</p>-->
+<!--                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">-->
+<!--                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>-->
+<!--                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>-->
+<!--                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md">-->
+<!--                <div class="ftco-footer-widget mb-4">-->
+<!--                    <h2 class="ftco-heading-2">Employers</h2>-->
+<!--                    <ul class="list-unstyled">-->
+<!--                        <li><a href="#" class="pb-1 d-block">Browse Candidates</a></li>-->
+<!--                        <li><a href="#" class="pb-1 d-block">Post a Job</a></li>-->
+<!--                        <li><a href="#" class="pb-1 d-block">Employer Listing</a></li>-->
+<!--                        <li><a href="#" class="pb-1 d-block">Resume Page</a></li>-->
+<!--                        <li><a href="#" class="pb-1 d-block">Dashboard</a></li>-->
+<!--                        <li><a href="#" class="pb-1 d-block">Job Packages</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md">-->
+<!--                <div class="ftco-footer-widget mb-4 ml-md-4">-->
+<!--                    <h2 class="ftco-heading-2">Candidate</h2>-->
+<!--                    <ul class="list-unstyled">-->
+<!--                        <li><a href="#" class="pb-1 d-block">Browse Jobs</a></li>-->
+<!--                        <li><a href="#" class="pb-1 d-block">Submit Resume</a></li>-->
+<!--                        <li><a href="#" class="pb-1 d-block">Dashboard</a></li>-->
+<!--                        <li><a href="#" class="pb-1 d-block">Browse Categories</a></li>-->
+<!--                        <li><a href="#" class="pb-1 d-block">My Bookmarks</a></li>-->
+<!--                        <li><a href="#" class="pb-1 d-block">Candidate Listing</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md">-->
+<!--                <div class="ftco-footer-widget mb-4 ml-md-4">-->
+<!--                    <h2 class="ftco-heading-2">Account</h2>-->
+<!--                    <ul class="list-unstyled">-->
+<!--                        <li><a href="#" class="pb-1 d-block">My Account</a></li>-->
+<!--                        <li><a href="#" class="pb-1 d-block">Sign In</a></li>-->
+<!--                        <li><a href="#" class="pb-1 d-block">Create Account</a></li>-->
+<!--                        <li><a href="#" class="pb-1 d-block">Checkout</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md">-->
+<!--                <div class="ftco-footer-widget mb-4">-->
+<!--                    <h2 class="ftco-heading-2">Have a Questions?</h2>-->
+<!--                    <div class="block-23 mb-3">-->
+<!--                        <ul>-->
+<!--                            <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St.-->
+<!--                      Mountain View, San Francisco, California, USA</span></li>-->
+<!--                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210-->
+<!--                    </span></a></li>-->
+<!--                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com-->
+<!--                    </span></a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-12 text-center">-->
+
+<!--                <p>&lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+<!--                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>-->
+<!--                    All rights reserved |-->
+<!--                    This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by-->
+<!--                    <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
+<!--                    &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</footer>-->
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle
+                class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle
+                class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+
+<section th:insert="fragments/sing-up :: sing-up"></section>
+
+<div th:insert="fragments/footer :: footer"></div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/aos.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="/js/google-map.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script src="/js/main.js"></script>
+
+
+<script>
+    $('.show-comments').click(function () {
+        $(this).siblings('.comment-list').toggle(500)
+    });
+</script>
+
+<script>
+    $(".like-form").submit(function (event) {
+        console.log("this is a like log:)") //check
+        console.log(event) //check
+        event.preventDefault()
+        let data = $(this).serialize();
+        // debugger;
+        console.log("data: " + data) //check
+        console.log("this: " + $(this)) //check
+        $.ajax({
+            type: "POST",
+            url: "/api/comment/auth/likesUp",
+            data: data,
+            success: function (d) {
+                console.log("success")
+                console.log(d) //check
+                console.log(d.likes.length) //check
+                $("#like-count" + d.commentId).text("Likes: " + d.likes.length)
+                if (d.liked === true)
+                    $("#submit-val" + d.commentId).val("Dislike")
+                else
+                    $("#submit-val" + d.commentId).val("Like")
+                console.log(d.liked) //check
+            }
+        })
+    })
+</script>
+
+</body>
+</html>

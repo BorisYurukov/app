@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}" href="..static/style.css"/>
+</head>
+<body>
+<h2>Register Page</h2>
+<p>
+    <i th:if="${error != null}" th:text="${error}" style="color: red"></i>
+</p>
+<form action="#" th:action="@{/register}" th:object="${user}" method="post" enctype="multipart/form-data">
+    <label>Username:</label>
+    <br/>
+    <label class="error" th:errors="*{username}"></label>
+    <input type="text" th:field="*{username}"/>
+
+    <br/>
+    <label>Password:</label>
+    <br/>
+    <input type="password" th:field="*{password}"/>
+    <br/>
+    <label>Confirm password:</label>
+    <br/>
+    <input type="password" th:field="*{confirmPassword}"/>
+    <br/>
+    <label>Email:</label>
+    <br/>
+    <input type="text" th:field="*{email}"/>
+    <br/>
+    <div class="form-group row">
+        <label class="col-4 col-form-label">What is your proffesional category?</label>
+        <div class="col-8">
+            <select required="required" name="select" th:field="*{category.id}" class="custom-select">
+                <option  option
+                         th:each="category: ${categories}"
+                         th:value="${category.id}"
+                         th:text="${category.name}"
+                >Choose...
+                </option>
+            </select>
+        </div>
+    </div>
+    <input type="submit" value="Register"/>
+</form>
+<h3>
+    <a th:href="@{/login}">Login</a>
+</h3>
+</body>
+</html>

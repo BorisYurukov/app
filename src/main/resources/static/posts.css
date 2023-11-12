@@ -1,0 +1,128 @@
+.error {
+    color: red;
+}
+.row {
+    cursor: pointer;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url("/myImages/81-Wood-.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: auto;
+    background-position: 50% 50%;
+}
+
+.navbar-brand {
+    font-size: 50px;
+}
+
+form {
+    padding: 15px 15px;
+    display: block;
+    cursor: pointer;
+}
+
+form :before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -2px;
+    opacity: 0;
+    width: 0;
+    height: 1px;
+    transition: 0.5s;
+    background: #facd8a;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 50%;
+    background-color: wheat;
+    table-layout: auto;
+}
+
+.table th, #table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+table tr{
+    color: #181108;
+}
+
+table th{
+    color: papayawhip;
+}
+
+tr:hover {
+    background-color: burlywood;
+    color: papayawhip;
+}
+
+h2, h3 {
+    color: papayawhip!important;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#b1{
+    margin-left: 13%;
+    margin-top: 5%;
+    width: 15%;
+    font-size: 80%;
+    border-radius: 5rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 1rem;
+    transition: all 0.2s;
+}
+#b2{
+    width: 15%;
+    margin-top: 5%;
+    font-size: 80%;
+    border-radius: 5rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 1rem;
+    transition: all 0.2s;
+
+}
+#b3{
+    width: 15%;
+    margin-top: 5%;
+    font-size: 80%;
+    border-radius: 5rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 1rem;
+    transition: all 0.2s;
+
+}
+#b4{
+    width: 15%;
+    margin-top: 5%;
+    font-size: 80%;
+    border-radius: 5rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 1rem;
+    transition: all 0.2s;
+
+}
+#b5 {
+    width: 15%;
+    margin-top: 5%;
+    font-size: 80%;
+    border-radius: 5rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 1rem;
+    transition: all 0.2s;
+
+}
+
