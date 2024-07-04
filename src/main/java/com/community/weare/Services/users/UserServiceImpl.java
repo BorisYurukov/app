@@ -65,7 +65,6 @@ public class UserServiceImpl implements UserService {
         user.setPersonalProfile(personalProfile);
         userRepository.saveAndFlush(user);
         return user.getUserId();
-
     }
 
     @Override

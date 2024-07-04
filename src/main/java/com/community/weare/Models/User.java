@@ -52,7 +52,7 @@ public class User implements UserDetails {
     private int enabled;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany 
     @JoinTable(name = "connection_users",
             joinColumns = @JoinColumn(name = "user_a"),
             inverseJoinColumns = @JoinColumn(name = "user_b"))

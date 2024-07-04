@@ -17,6 +17,7 @@ dependencies {
     implementation 'mysql:mysql-connector-java'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.4.0' // Use the latest version
 
     implementation group: 'org.json', name: 'json', version: '20190722'
     implementation 'org.webjars:bootstrap:4.4.1'

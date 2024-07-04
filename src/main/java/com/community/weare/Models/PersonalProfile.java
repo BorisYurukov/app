@@ -123,7 +123,6 @@ public class PersonalProfile {
     public void setMemberSince(LocalDateTime memberSince) {
         this.memberSince = memberSince;
     }
-
     public Sex getSex() {
         return sex;
     }

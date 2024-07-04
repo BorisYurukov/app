@@ -1,6 +1,6 @@
 package com.community.weare.Models.dto;
 
-public class PostDTO {
+public class  PostDTO {
 
     private boolean isPublic;
     private String content;
