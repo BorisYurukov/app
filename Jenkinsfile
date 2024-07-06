@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/BorisYurukov/app.git'
+                git branch: 'main', url: 'https://github.com/BorisYurukov/app.git'
             }
         }
         
@@ -36,9 +36,7 @@ pipeline {
         stage('Deploy with Docker Compose') {
             steps {
                 script {
-                    // Stop and remove existing container if any
                     sh 'docker-compose -f ../app/docker-compose.yml down || true'
-                    // Start the container using Docker Compose
                     sh 'docker-compose -f ../app/docker-compose.yml up -d'
                 }
             }
@@ -47,7 +45,6 @@ pipeline {
     
     post {
         always {
-            // Clean up dangling Docker images
             sh 'docker rmi $(docker images -f "dangling=true" -q) || true'
         }
     }
